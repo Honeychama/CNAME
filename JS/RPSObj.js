@@ -18,6 +18,14 @@ var Game1 = {
 	//lastName:"Doe", 
 	//age:50, 
 	//eyeColor:"blue"
+	addCompImage: function(){
+		var container = document.getElementById("gameBoard");
+		var compImg = document.createElement("IMG");
+		compImg.src = "../imgs/tempChoice.png"
+		compImg.style.maxWidth = "100%";
+		container.prepend(compImg);
+		
+	},
 	addButtons: function(){
 		var container = document.getElementById("gameBoard");
 		
@@ -69,6 +77,7 @@ var Game1 = {
 		var container = document.getElementById("gameSpace");
 		var gameBoard = document.createElement("DIV");
 		gameBoard.style.color = "blue";
+		gameBoard.style.textAlign = "center";
 		gameBoard.setAttribute("id", "gameBoard");
 		container.appendChild(gameBoard);
 	},
@@ -91,6 +100,7 @@ var Game1 = {
 	   Game1.createGameBoard();
 	   Game1.addButtons();
 	   Game1.setButtonClicks();
+	   Game1.addCompImage();
 
 		
 	   
