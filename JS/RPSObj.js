@@ -54,21 +54,21 @@ var Game1 = {
 		
 		$(document).ready(function(){
 			$("#button1").click(function(){
-				alert("Rock");
+				Game1.playerChoice(0);
 			});
 			
 		});
 		
 		$(document).ready(function(){
 			$("#button2").click(function(){
-				alert("Paper");
+				Game1.playerChoice(1);
 			});
 			
 		});
 		
 		$(document).ready(function(){
 			$("#button3").click(function(){
-				alert("Sissors");
+				Game1.playerChoice(2);
 			});
 			
 		});
@@ -81,13 +81,44 @@ var Game1 = {
 		gameBoard.setAttribute("id", "gameBoard");
 		container.appendChild(gameBoard);
 	},
-	playerChoice : function() {
+	cmp : function(cmp, user){
+		if(cmp == 0){
+			if(user == 0) 
+				alert("Tie!");
+			if(user == 1) 
+				return true;
+			if(user == 2) 
+				return false;
+		}
+		if(cmp == 1){
+			if(user == 0) 
+				return false;
+			if(user == 1) 
+				alert("Tie!");
+			if(user == 2) 
+				return true;
+		}
+		if(cmp == 2){
+			if(user == 0) 
+				return true;
+			if(user == 1) 
+				return false;
+			if(user == 2) 
+				alert("Tie!");
+		}
+	},
+	playerChoice : function(choice) {
 		
 		//Random number from 0 to 3
 		//represents: 0 : rock , 1 : paper , 2 : sissors
 		var compChoice = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
 
+		var result = Game1.cmp(compChoice, choice);
 		
+		if(result == true)
+			alert("You win!");
+		else
+			alert("You lose!");
 		
        //Called when player makes a choice
     },
