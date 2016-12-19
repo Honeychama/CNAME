@@ -23,6 +23,7 @@ var Game1 = {
 		var compImg = document.createElement("IMG");
 		compImg.src = "../imgs/tempChoice.png"
 		compImg.style.maxWidth = "100%";
+		compImg.setAttribute("id", "compImg");
 		container.prepend(compImg);
 		
 	},
@@ -107,12 +108,27 @@ var Game1 = {
 				alert("Tie!");
 		}
 	},
+	compImgChange : function(cmp){
+		if(cmp == 0){
+			var container = document.getElementById("compImg");
+			container.src = "../imgs/rock.jpg"
+		}
+		if(cmp == 1){
+			var container = document.getElementById("compImg");
+			container.src = "../imgs/paper.png"
+		}
+		if(cmp == 2){
+			var container = document.getElementById("compImg");
+			container.src = "../imgs/sissors.jpg"
+		}
+		
+	},
 	playerChoice : function(choice) {
 		
-		//Random number from 0 to 3
+		//Random number from 0 to 2
 		//represents: 0 : rock , 1 : paper , 2 : sissors
-		var compChoice = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
-
+		var compChoice = Math.floor(Math.random() * (2 - 0 + 1)) + 0;
+		Game1.compImgChange(compChoice);
 		var result = Game1.cmp(compChoice, choice);
 		
 		if(result == true)
