@@ -1,3 +1,9 @@
+
+var totalTries = 3;
+var numTries = {
+	unlimited : false
+} ;
+
 /**
 *Runs Game1 when play is pressed
 **/
@@ -5,6 +11,7 @@ $(document).ready(function(){
     $("#playRPS").click(function(){
 		//alert("Testing");
         $("#playRPS").hide();
+		$("#playRPSUnlimited").hide();
 	   Game1.run();
     });
 	
@@ -17,14 +24,12 @@ $(document).ready(function(){
     $("#playRPSUnlimited").click(function(){
 		//alert("Testing");
         $("#playRPSUnlimited").hide();
-		numTries = true;
-	   Game1.run();
+		$("#playRPS").hide();
+		numTries.unlimited = true;
+	   Game1.run();numTries.unlimited
     });
 	
 });
-
-var totalTries = 3;
-var numTries = false;
 
 /**
 *This is the Game object for rock paper sissors.
@@ -32,8 +37,12 @@ var numTries = false;
 var Game1 = {
 	score: 0,
 	tries: totalTries, 
-	unlimited: numTries, 
+	unlimited: numTries.unlimited, 
 	//eyeColor:"blue"
+	check: function(){
+		Game1.unlimited = numTries.unlimited;
+		Game1.tries = totalTries;
+	},
 	addCompImage: function(){
 		var container = document.getElementById("gameBoard");
 		var compImg = document.createElement("IMG");
@@ -260,6 +269,7 @@ var Game1 = {
 	   //alert("Run function");
 	   
 	   //Create game board
+		Game1.check();
 		Game1.createGameBoard();
 		Game1.addButtons();
 		Game1.setButtonClicks();
