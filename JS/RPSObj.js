@@ -11,12 +11,28 @@ $(document).ready(function(){
 });
 
 /**
+*Runs Game1 with unlimited tries
+**/
+$(document).ready(function(){
+    $("#playRPSUnlimited").click(function(){
+		//alert("Testing");
+        $("#playRPSUnlimited").hide();
+		numTries = true;
+	   Game1.run();
+    });
+	
+});
+
+var totalTries = 3;
+var numTries = false;
+
+/**
 *This is the Game object for rock paper sissors.
 **/
 var Game1 = {
-	//firstName:"John",
-	//lastName:"Doe", 
-	//age:50, 
+	score: 0,
+	tries: totalTries, 
+	unlimited: numTries, 
 	//eyeColor:"blue"
 	addCompImage: function(){
 		var container = document.getElementById("gameBoard");
@@ -29,6 +45,54 @@ var Game1 = {
 		
 		$("#compImg").fadeIn(500);
 		
+	},
+	addScore: function(){
+		var container = document.getElementById("gameBoard");
+		
+		var scoreContainer = document.createElement("DIV");
+		scoreContainer.setAttribute("id", "scoreContainer");
+		var score = document.createTextNode("Score : " + Game1.score);
+		
+		scoreContainer.appendChild(score);
+		container.appendChild(scoreContainer);
+		
+	},
+	displayTries : function(){
+		var container = document.getElementById("gameBoard");
+		var triesContainer = document.createElement("DIV");
+		triesContainer.setAttribute("id", "triesContainer");
+		if(Game1.unlimited == false)
+			var tries = document.createTextNode("Tries : " + Game1.tries);
+		else
+			var tries = document.createTextNode("Tries : unlimited");
+
+		triesContainer.appendChild(tries);
+		container.appendChild(triesContainer);
+		
+	},
+	updateScore : function(){
+		var container = document.getElementById("scoreContainer");
+		
+		while (container.hasChildNodes())
+			container.removeChild(container.lastChild);
+		
+		var score = document.createTextNode("Score : " + Game1.score);
+		container.appendChild(score);
+	},
+	updateTries : function(){
+		var container = document.getElementById("triesContainer");
+		
+		while (container.hasChildNodes())
+			container.removeChild(container.lastChild);
+		
+		var tries = document.createTextNode("Tries : " + Game1.tries);
+		container.appendChild(tries);
+	},
+	update: function(unlimited){
+		Game1.updateScore();
+		if(unlimited == false){
+			Game1.updateTries();
+		}
 	},
 	addButtons: function(){
 		var container = document.getElementById("gameBoard");
@@ -142,13 +206,51 @@ var Game1 = {
 		//win
 		if(result == 1){
 			swal("You win!", "", "success")
+			Game1.score++;
+			if(Game1.unlimited == false)
+				Game1.tries--;
+			Game1.update(Game1.unlimited);
+			if(Game1.tries == 0){
+				  swal({
+				   title: 'Game Over!',
+				   text: "Score: " + Game1.score,
+				   type: 'error'
+				}, function() {
+					window.location.replace("../index.html");
+				});
+			}
 		}
 		//lose
 		if(result == -1){
-			 swal("You lose", "", "error");
+			swal("You lose", "", "error");
+			if(Game1.unlimited == false)
+				Game1.tries--;
+			Game1.update(Game1.unlimited);
+			if(Game1.tries == 0){
+				  swal({
+				   title: 'Game Over!',
+				   text: "Score: " + Game1.score,
+				   type: 'error'
+				}, function() {
+					window.location.replace("../index.html");
+				});
+			}
 		}
 		if(result == 0){
 			swal("You tied", "", "error");
+			if(Game1.unlimited == false)
+				Game1.tries--;
+			Game1.update(Game1.unlimited);
+			if(Game1.tries == 0){
+				swal({
+				   title: 'Game Over!',
+				   text: "Score: " + Game1.score,
+				   type: 'error'
+				}, function() {
+					window.location.replace("../index.html");
+				});
+				  
+			}
 		}
       
     },
@@ -158,12 +260,14 @@ var Game1 = {
 	   //alert("Run function");
 	   
 	   //Create game board
-	   Game1.createGameBoard();
-	   Game1.addButtons();
-	   Game1.setButtonClicks();
-	   Game1.addCompImage();
-
+		Game1.createGameBoard();
+		Game1.addButtons();
+		Game1.setButtonClicks();
+		Game1.addCompImage();
+		Game1.addScore();
+		Game1.displayTries();
 		
+	
 	   
 
     }
