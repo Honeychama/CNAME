@@ -50,6 +50,8 @@ var Game1 = {
 		compImg.style.maxWidth = "100%";
 		compImg.setAttribute("id", "compImg");
 		compImg.style.display = "none";
+		var breakEle = document.createElement("BR");
+		container.prepend(breakEle);
 		container.prepend(compImg);
 		
 		$("#compImg").fadeIn(500);
