@@ -24,7 +24,10 @@ var Game1 = {
 		compImg.src = "../imgs/tempChoice.png"
 		compImg.style.maxWidth = "100%";
 		compImg.setAttribute("id", "compImg");
+		compImg.style.display = "none";
 		container.prepend(compImg);
+		
+		$("#compImg").fadeIn(500);
 		
 	},
 	addButtons: function(){
@@ -85,44 +88,49 @@ var Game1 = {
 	cmp : function(cmp, user){
 		if(cmp == 0){
 			if(user == 0) 
-				alert("Tie!");
+				return 0;
 			if(user == 1) 
-				return true;
+				return 1;
 			if(user == 2) 
-				return false;
+				return -1;
 		}
 		if(cmp == 1){
 			if(user == 0) 
-				return false;
+				return -1;
 			if(user == 1) 
-				alert("Tie!");
+				return 0;
 			if(user == 2) 
-				return true;
+				return 1;
 		}
 		if(cmp == 2){
 			if(user == 0) 
-				return true;
+				return 1;
 			if(user == 1) 
-				return false;
+				return -1;
 			if(user == 2) 
-				alert("Tie!");
+				return 0;
 		}
 	},
 	compImgChange : function(cmp){
 		if(cmp == 0){
-			var container = document.getElementById("compImg");
-			container.src = "../imgs/rock.jpg"
+			document.getElementById("compImg").style.display = "none";
+			$("#compImg").attr("src","../imgs/rock.jpg");
+			$("#compImg").fadeIn(500);
+			
 		}
 		if(cmp == 1){
-			var container = document.getElementById("compImg");
-			container.src = "../imgs/paper.png"
+			document.getElementById("compImg").style.display = "none";
+			$("#compImg").attr("src","../imgs/paper.png");
+			$("#compImg").fadeIn(500);
 		}
 		if(cmp == 2){
-			var container = document.getElementById("compImg");
-			container.src = "../imgs/sissors.jpg"
+			document.getElementById("compImg").style.display = "none";
+			$("#compImg").attr("src","../imgs/sissors.jpg");
+			$("#compImg").fadeIn(500);
 		}
 		
 	},
+	//Called when player makes a choice
 	playerChoice : function(choice) {
 		
 		//Random number from 0 to 2
@@ -131,12 +139,18 @@ var Game1 = {
 		Game1.compImgChange(compChoice);
 		var result = Game1.cmp(compChoice, choice);
 		
-		if(result == true)
-			alert("You win!");
-		else
-			alert("You lose!");
-		
-       //Called when player makes a choice
+		//win
+		if(result == 1){
+			swal("You win!", "", "success")
+		}
+		//lose
+		if(result == -1){
+			 swal("You lose", "", "error");
+		}
+		if(result == 0){
+			swal("You tied", "", "error");
+		}
+      
     },
 	run : function() {
        //Starts the game
