@@ -1,5 +1,17 @@
 
 
+/**
+*Runs Game2 when regular is pressed
+**/
+$(document).ready(function(){
+    $("#playReg").click(function(){
+		//alert("Testing");
+        $("#playReg").hide();
+		$("#playHard").hide();
+	   Game2.run();
+    });
+	
+});
 
 function cup(containsBall) {
     this.ball = containsBall;
@@ -13,8 +25,15 @@ var Game2 = {
 	setUp: function(){
 		var container = document.getElementById("gameSpace");
 		
-	},
-	play: function(){
+		var cup1 = document.createElement("IMG");
+		cup1.src = "../imgs/cup.png"
+		cup1.setAttribute("id", "cup1");
+		container.prepend(cup1);
 		
+		//var cup2
+		//var cup3
+	},
+	run: function(){
+		Game2.setUp();
 	}
 };
