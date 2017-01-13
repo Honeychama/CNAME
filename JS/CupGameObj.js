@@ -28,6 +28,7 @@ var Game2 = {
 		var cup1 = document.createElement("IMG");
 		cup1.src = "../imgs/cup.png"
 		cup1.setAttribute("id", "cup1");
+		cup1.setAttribute("class", "col-sm-4");
 		container.prepend(cup1);
 		
 		//var cup2
